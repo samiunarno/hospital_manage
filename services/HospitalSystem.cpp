@@ -216,3 +216,43 @@ void HospitalSystem::reportMedicineStock() {
         cout << "Medicine: " << m.name << ", Stock: " << m.stock << endl;
     }
 }
+
+void HospitalSystem::saveAllData() {
+    FileHandler::savePatients(patients);
+    FileHandler::saveDoctors(doctors);
+    FileHandler::saveMedicines(medicines);
+
+    cout << "Data Saved Successfully!" << endl;
+}
+
+void HospitalSystem::loadAllData() {
+    patients = FileHandler::loadPatients();
+    doctors = FileHandler::loadDoctors();
+    medicines = FileHandler::loadMedicines();
+
+    cout << "Data Loaded Successfully!" << endl;
+}
+void HospitalSystem::registerUser(User u) {
+    for (auto &user : users) {
+        if (user.username == u.username) {
+            cout << "Username exists!\n";
+            return;
+        }
+    }
+
+    users.push_back(u);
+    cout << "Registered successfully!\n";
+}
+
+bool HospitalSystem::loginUser(string username, string password) {
+    for (auto &u : users) {
+        if (u.username == username && u.password == password) {
+            currentUser = u;
+            cout << "Login success! Role: " << u.role << endl;
+            return true;
+        }
+    }
+
+    cout << "Invalid login!\n";
+    return false;
+}

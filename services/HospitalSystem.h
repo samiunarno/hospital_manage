@@ -10,6 +10,8 @@
 #include "Medicine.h"
 #include "MedicalRecord.h"
 #include "Prescription.h"
+#include "utils/FileHandler.h"
+#include "user.h"
 
 using namespace std;
 
@@ -23,7 +25,8 @@ class HospitalSystem {
     vector<Medicine> medicines;
     vector<MedicalRecord> records;
     vector<Prescription> prescriptions;
-    
+    vector<User> users;
+    User currentUser;
 
     public:
     void addPatient(Patient p);
@@ -62,5 +65,18 @@ class HospitalSystem {
     void reportTotalPatients();
     void reportBedStatus();
     void reportMedicineStock();
+
+    void saveAllData();
+    void loadAllData();
+
+    void registrerUser(User u);
+    bool loginUser(string username, string password);
+
+    void adminMenu();
+    void doctorMenu();
+    void patientMenu();
+
+    void showusers();
+    void deleteUser(string username);
 };
 #endif

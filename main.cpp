@@ -6,6 +6,7 @@ using namespace std;
 
 int main() {
     HospitalSystem s;
+    s.loadAllData();
     int choice;
 
     while (true) {
@@ -27,6 +28,12 @@ int main() {
         cout << "15. Show Medicines\n";
         cout << "16. Stock In\n";
         cout << "17. Stock Out\n";
+        cout << "18. Search Patient\n";
+        cout << "19. Search Doctor\n";
+        cout << "20. Search Medicine\n";
+        cout << "21. Total Patients Report\n";
+        cout << "22. Bed Report\n";
+        cout << "23. Medicine Report\n";
         cout << "0. Exit\n";
         cout << "Choice: ";
         cin >> choice;
@@ -203,6 +210,44 @@ int main() {
             cin >> qty;
 
             s.stockOutMedicine(id, qty);
+        }
+
+        else if(choice == 18){
+            int id;
+            cout<<"Patient ID";
+            cin>>id;
+            s.searchPatient(id);
+        }
+
+        else if(choice == 19){
+            int id;
+            cout<<"Doctor ID: ";
+            cin>>id;
+            s.searchDoctor(id);
+        }
+
+        else if(choice == 20){
+            string name;
+            cout<<"Medicine Name: ";
+            cin>>name;
+            s.searchMedicine(name);
+        }
+
+        else if(choice == 21){
+            s.reportTotalPatients();
+        }
+
+        else if(choice == 22){
+            s.reportBedStatus();
+        }
+
+        else if(choice == 23){
+            s.reportMedicineStock();
+        }
+
+        else if(choice ==0){
+            s.saveAllData();
+            break;
         }
 
         else {
