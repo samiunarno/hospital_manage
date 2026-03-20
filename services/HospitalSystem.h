@@ -59,5 +59,8 @@ class HospitalSystem {
     void searchPatient(int id);
     void searchDoctor(int id);
     void searchMedicine(string name);
+    void reportTotalPatients();
+    void reportBedStatus();
+    void reportMedicineStock();
 };
 #endif

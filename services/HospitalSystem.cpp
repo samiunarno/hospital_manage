@@ -158,5 +158,61 @@ void HospitalSystem::addPrescription(Prescription p) {
     cout << "Prescription added & stock updated!\n";
 }
 
+void HospitalSystem::searchPatient(int id){
+    for(auto &p : patients){
+        if(p.id == id){
+            p.display();
+            return;
+        }
+    }
+    cout << "Patient not found!\n";
+}
 
+void HospitalSystem::searchDoctor(int id){
+    for(auto &d : doctors){
+        if(d.id == id){
+            d.display();
+            return;
+        }
+    }
+    cout << "Doctor not found!\n";
+}
 
+void HospitalSystem::searchMedicine(string name){
+    for(auto &m : medicines){
+        if(m.name == name){
+            m.display();
+            return;
+        }
+        for (auto &a : m.aliases) {
+            if (a == name) {
+                m.display();
+                return;
+            }
+        }
+    }
+    
+    cout << "Medicine not found!\n";
+}
+
+void HospitalSystem::reportTotalPatients() {
+    cout << "Total patients: " << patients.size() << endl;
+}
+
+void HospitalSystem::reportBedStatus() {
+    int occupied = 0;
+    for (auto &b : beds) {
+        if (b.occupied) {
+            occupied++;
+        }
+    }
+    cout << "Total Beds: " << beds.size() << endl;
+    cout << "Occupied: " << occupied << endl;
+    cout << "Available: " << beds.size() - occupied << endl;
+}
+
+void HospitalSystem::reportMedicineStock() {
+    for (auto &m : medicines) {
+        cout << "Medicine: " << m.name << ", Stock: " << m.stock << endl;
+    }
+}
