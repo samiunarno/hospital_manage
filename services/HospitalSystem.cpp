@@ -143,6 +143,20 @@ void HospitalSystem::stockOutMedicine(int medId, int qty) {
     }
     cout << "Medicine not found!\n";
 }
+void HospitalSystem::addPrescription(Prescription p) {
+    prescriptions.push_back(p);
+
+    
+    for (auto &medName : p.medicines) {
+        for (auto &m : medicines) {
+            if (m.name == medName) {
+                m.stockOut(1); 
+            }
+        }
+    }
+
+    cout << "Prescription added & stock updated!\n";
+}
 
 
 

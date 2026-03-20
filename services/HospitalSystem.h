@@ -55,5 +55,9 @@ class HospitalSystem {
 
     void stockInMedicine(int medId, int qty);
     void stockOutMedicine(int medId, int qty);
+
+    void searchPatient(int id);
+    void searchDoctor(int id);
+    void searchMedicine(string name);
 };
 #endif
