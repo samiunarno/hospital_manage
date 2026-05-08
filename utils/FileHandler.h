@@ -2,13 +2,16 @@
 #define FILEHANDLER_H
 
 #include <vector>
-#include "Patient.h"
-#include "Doctor.h"
-#include "Medicine.h"
+#include "../models/Patient.h"
+#include "../models/Doctor.h"
+#include "../models/Medicine.h"
+#include "../models/user.h"
 
 using namespace std;
 class FileHandler {
 public:
+    static void saveUsers(const std::vector<User>& users);
+    static std::vector<User> loadUsers();
     static void savePatients(vector<Patient>& patients);
     static vector<Patient> loadPatients();
 

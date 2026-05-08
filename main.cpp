@@ -1,6 +1,7 @@
 #include <iostream>
 #include <limits>
 #include "services/HospitalSystem.h"
+#include "models/user.h"  // Make sure to include User.h
 
 using namespace std;
 
@@ -8,6 +9,59 @@ int main() {
     HospitalSystem s;
     s.loadAllData();
     int choice;
+
+    while (true) {
+        cout << "\n--- Login / Register ---\n";
+        cout << "1. Register\n";
+        cout << "2. Login\n";
+        cout << "0. Exit\n";
+        cout << "Choice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            string username, password, role;
+            cout << "Enter Username: ";
+            cin >> username;
+            cout << "Enter Password: ";
+            cin >> password;
+            cout << "Enter Role (admin/doctor/patient): ";
+            cin >> role;
+
+            s.registerUser(User(username, password, role));
+        }
+
+        else if (choice == 2) {
+            string username, password;
+            cout << "Enter Username: ";
+            cin >> username;
+            cout << "Enter Password: ";
+            cin >> password;
+
+            if (s.loginUser(username, password)) {
+                
+if (s.getCurrentUser().role == "admin") {
+    s.adminMenu();
+}
+else if (s.getCurrentUser().role == "doctor") {
+    s.doctorMenu();
+}
+else if (s.getCurrentUser().role == "patient") {
+    s.patientMenu();
+}
+                break;  // exit login loop
+            }
+            else {
+                cout << "Invalid login. Please try again.\n";
+            }
+        }
+        else if (choice == 0) {
+            s.saveAllData();
+            break;
+        }
+        else {
+            cout << "Invalid choice, try again.\n";
+        }
+    }
 
     while (true) {
         cout << "\n--- Hospital System ---\n";

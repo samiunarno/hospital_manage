@@ -1,6 +1,17 @@
 #include "FileHandler.h"
 #include <fstream>
 #include <sstream>
+#include <iostream>
+#include <sys/stat.h> 
+
+void createDirectoryIfNotExists(const string& dir) {
+    struct stat info;
+    if (stat(dir.c_str(), &info) != 0) {
+        // Directory does not exist, create it
+        cout << "Directory does not exist. Creating directory: " << dir << endl;
+        mkdir(dir.c_str(), 0777);  
+    }
+}
 
 void FileHandler::savePatients(vector<Patient>& patients) {
     ofstream file("../data/patients.txt");
@@ -54,6 +65,40 @@ vector<Doctor> FileHandler::loadDoctors() {
         getline(ss, dept, ',');
 
         list.push_back(Doctor(stoi(id), name, stoi(dept)));
+    }
+
+    return list;
+}
+
+void FileHandler::saveUsers(const vector<User>& users) {
+    ofstream file("../data/user.txt");
+
+    if (!file.is_open()) {
+        cout << "Error opening users file for writing." << endl;
+        return;
+    }
+
+    for (const auto &u : users) {
+        file << u.username << "," << u.password << "," << u.role << endl;
+    }
+
+    file.close();
+}
+
+vector<User> FileHandler::loadUsers() {
+    vector<User> list;
+    ifstream file("../data/user.txt");
+
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string username, password, role;
+
+        getline(ss, username, ',');
+        getline(ss, password, ',');
+        getline(ss, role, ',');
+
+        list.push_back(User(username, password, role));
     }
 
     return list;
